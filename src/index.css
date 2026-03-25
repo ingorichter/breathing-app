@@ -31,11 +31,44 @@
   --text-muted:    #5a7f96;
   --glow-sage:     rgba(116, 198, 157, 0.35);
   --glow-ocean:    rgba(58, 124, 165, 0.35);
+  /* alpha variants used in gradients & active states */
+  --sage-a08:      rgba(116, 198, 157, 0.08);
+  --sage-a55:      rgba(116, 198, 157, 0.55);
+  --sage-a60:      rgba(116, 198, 157, 0.6);
+  --sage-a80:      rgba(116, 198, 157, 0.8);
 
   /* Phase durations — keep in sync with PHASE_DURATIONS in useBreathing.ts */
   --dur-inhale: 4s;
   --dur-hold:   7s;
   --dur-exhale: 8s;
+}
+
+[data-theme="orange"] {
+  --ocean-deep:   #5c2e00;
+  --ocean-mid:    #a05a1e;
+  --ocean-light:  #c8804f;
+  --sage:         #e8843b;
+  --sage-light:   #f4b077;
+  --glow-sage:    rgba(232, 132, 59, 0.35);
+  --glow-ocean:   rgba(160, 90, 30, 0.35);
+  --sage-a08:     rgba(232, 132, 59, 0.08);
+  --sage-a55:     rgba(232, 132, 59, 0.55);
+  --sage-a60:     rgba(232, 132, 59, 0.6);
+  --sage-a80:     rgba(232, 132, 59, 0.8);
+}
+
+[data-theme="peach"] {
+  --ocean-deep:   #6b2d3e;
+  --ocean-mid:    #b05868;
+  --ocean-light:  #d498a4;
+  --sage:         #f0968a;
+  --sage-light:   #f8c4bc;
+  --glow-sage:    rgba(240, 150, 138, 0.35);
+  --glow-ocean:   rgba(176, 88, 104, 0.35);
+  --sage-a08:     rgba(240, 150, 138, 0.08);
+  --sage-a55:     rgba(240, 150, 138, 0.55);
+  --sage-a60:     rgba(240, 150, 138, 0.6);
+  --sage-a80:     rgba(240, 150, 138, 0.8);
 }
 
 * {
@@ -72,7 +105,7 @@ body {
 
 /* ───── Buttons ───── */
 .btn-primary {
-  background: linear-gradient(135deg, var(--ocean-deep), rgba(116, 198, 157, 0.8));
+  background: linear-gradient(135deg, var(--ocean-deep), var(--sage-a80));
   color: var(--text-primary);
   font-family: 'Raleway', sans-serif;
   font-weight: 400;
@@ -161,7 +194,7 @@ input[type='range']::-moz-range-thumb {
 
 /* ───── Streak badge ───── */
 .streak-badge {
-  background: linear-gradient(135deg, #1b4965 0%, rgba(116, 198, 157, 0.6) 100%);
+  background: linear-gradient(135deg, var(--ocean-deep) 0%, var(--sage-a60) 100%);
   border: 1px solid rgba(116, 198, 157, 0.4);
   border-radius: 100px;
 }

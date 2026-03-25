@@ -4,10 +4,12 @@ import { Home }    from './pages/Home';
 import { Setup }   from './pages/Setup';
 import { Session } from './pages/Session';
 import { Stats }   from './pages/Stats';
+import { ThemeProvider } from './context/ThemeContext';
 import styles from './App.module.css';
 
 export default function App() {
   return (
+    <ThemeProvider>
     <HashRouter>
       <div className={styles.root}>
         <Routes>
@@ -33,5 +35,6 @@ export default function App() {
         </Routes>
       </div>
     </HashRouter>
+    </ThemeProvider>
   );
 }

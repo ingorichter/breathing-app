@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Volume2, Bell, Eye, Play } from 'lucide-react';
 import { AudioMode, SessionConfig } from '../types';
 import { loadConfig, saveConfig } from '../store/config';
+import { Theme, useTheme } from '../context/ThemeContext';
 import styles from './Setup.module.css';
 
 const AUDIO_OPTIONS: { mode: AudioMode; icon: typeof Volume2; label: string; desc: string }[] = [
@@ -11,9 +12,16 @@ const AUDIO_OPTIONS: { mode: AudioMode; icon: typeof Volume2; label: string; des
   { mode: 'visual', icon: Eye,     label: 'Visual Only',  desc: 'No audio'           },
 ];
 
+const THEMES: { id: Theme; label: string; color: string }[] = [
+  { id: 'green', label: 'Sage',   color: '#74c69d' },
+  { id: 'orange', label: 'Ember', color: '#e8843b' },
+  { id: 'peach',  label: 'Blush', color: '#f0968a' },
+];
+
 export function Setup() {
   const navigate = useNavigate();
   const [config, setConfig] = useState<SessionConfig>(loadConfig);
+  const { theme, setTheme } = useTheme();
 
   const handleDuration = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = Number(e.target.value);
@@ -94,6 +102,24 @@ export function Setup() {
               </button>
             );
           })}
+        </div>
+      </div>
+
+      {/* Theme */}
+      <div className={styles.themeCard}>
+        <span className={styles.audioLabel}>Color Theme</span>
+        <div className={styles.themeOptions}>
+          {THEMES.map(({ id, label, color }) => (
+            <button
+              key={id}
+              onClick={() => setTheme(id)}
+              className={`${styles.themeOption}${theme === id ? ` ${styles.themeOptionActive}` : ''}`}
+              aria-label={label}
+            >
+              <span className={styles.themeSwatch} style={{ background: color }} />
+              <span className={styles.themeLabel}>{label}</span>
+            </button>
+          ))}
         </div>
       </div>
 

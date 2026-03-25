@@ -127,8 +127,8 @@
 }
 
 .audioOptionActive {
-  border-color: rgba(116, 198, 157, 0.55);
-  background: rgba(116, 198, 157, 0.08);
+  border-color: var(--sage-a55);
+  background: var(--sage-a08);
 }
 
 .audioOptionActive svg {
@@ -162,6 +162,56 @@
   border-radius: 50%;
   background: var(--sage);
   box-shadow: 0 0 8px var(--glow-sage);
+}
+
+.themeCard {
+  composes: card from global;
+  padding: 22px 20px;
+  margin-bottom: 32px;
+}
+
+.themeOptions {
+  display: flex;
+  gap: 10px;
+}
+
+.themeOption {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(27, 73, 101, 0.3);
+  background: transparent;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.themeOptionActive {
+  border-color: var(--sage-a55);
+  background: var(--sage-a08);
+}
+
+.themeSwatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: block;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.themeLabel {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-family: 'Raleway', sans-serif;
+}
+
+.themeOptionActive .themeLabel {
+  color: var(--text-primary);
 }
 
 .saveRow {
