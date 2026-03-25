@@ -1,0 +1,79 @@
+.container {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-deep);
+  padding: 0 24px;
+}
+
+.topControls {
+  position: absolute;
+  top: max(env(safe-area-inset-top, 16px), 16px);
+  right: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.iconBtn {
+  background: rgba(27, 73, 101, 0.35);
+  border: 1px solid rgba(58, 124, 165, 0.3);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-muted);
+}
+
+.completeOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 8, 15, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  animation: pageIn 0.5s ease-out both;
+}
+
+.completeTextWrapper {
+  text-align: center;
+}
+
+.completeTitle {
+  composes: font-display from global;
+  font-size: clamp(2rem, 10vmin, 3rem);
+  font-weight: 300;
+  color: var(--sage-light);
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+.completeStats {
+  margin-top: 10px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.btnRow {
+  display: flex;
+  gap: 12px;
+}
+
+.ghostBtn {
+  composes: btn-ghost from global;
+}
+
+.primaryBtn {
+  composes: btn-primary from global;
+}

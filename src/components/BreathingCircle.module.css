@@ -1,0 +1,149 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 340px;
+  height: 340px;
+}
+
+.progressRing {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+.progressArc {
+  transition: stroke-dashoffset 1s linear;
+}
+
+.breathWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(70vmin, 320px);
+  height: min(70vmin, 320px);
+}
+
+.breathRing {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 38% 38%,
+    rgba(58, 124, 165, 0.18),
+    rgba(10, 22, 40, 0.92) 68%
+  );
+  border: 2px solid rgba(116, 198, 157, 0.55);
+  transform: scale(0.32);
+  will-change: transform;
+  transition: transform 0.8s ease-out, box-shadow 1.2s ease;
+  box-shadow:
+    0 0 18px var(--glow-sage),
+    0 0 60px rgba(116, 198, 157, 0.08),
+    inset 0 0 40px rgba(27, 73, 101, 0.25);
+}
+
+.breathRingInhale {
+  transform: scale(1);
+  transition: transform var(--dur-inhale) cubic-bezier(0.25, 0.1, 0.25, 1),
+              box-shadow var(--dur-inhale) ease;
+  box-shadow:
+    0 0 40px var(--glow-sage),
+    0 0 100px rgba(116, 198, 157, 0.15),
+    inset 0 0 60px rgba(27, 73, 101, 0.15);
+}
+
+.breathRingHold {
+  transform: scale(1);
+  transition: transform 0.1s ease;
+  animation: holdPulse var(--dur-hold) ease-in-out;
+  box-shadow:
+    0 0 50px var(--glow-ocean),
+    0 0 120px rgba(58, 124, 165, 0.12),
+    inset 0 0 60px rgba(27, 73, 101, 0.1);
+}
+
+.breathRingExhale {
+  transform: scale(0.32);
+  transition: transform var(--dur-exhale) cubic-bezier(0.4, 0, 0.6, 1),
+              box-shadow var(--dur-exhale) ease;
+  box-shadow:
+    0 0 16px var(--glow-sage),
+    0 0 40px rgba(116, 198, 157, 0.06),
+    inset 0 0 30px rgba(27, 73, 101, 0.3);
+}
+
+@keyframes holdPulse {
+  0%   { transform: scale(1); }
+  20%  { transform: scale(1.025); }
+  50%  { transform: scale(1.018); }
+  80%  { transform: scale(1.025); }
+  100% { transform: scale(1); }
+}
+
+.centerOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  gap: 4px;
+}
+
+.phaseLabel {
+  composes: font-display from global;
+  font-size: clamp(1.35rem, 5vmin, 1.75rem);
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  transition: color 0.8s ease;
+  line-height: 1;
+}
+
+.phaseLabelInhale { color: var(--sage-light); }
+.phaseLabelHold   { color: var(--ocean-light); }
+.phaseLabelExhale { color: var(--sage); }
+
+.phaseTimer {
+  font-size: clamp(2rem, 8vmin, 2.8rem);
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  color: var(--text-primary);
+  line-height: 1;
+  opacity: 0.9;
+}
+
+.idleLabel {
+  composes: font-display from global;
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--text-muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.statsBelow {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  bottom: -48px;
+  gap: 4px;
+}
+
+.cycleCount {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.timeRemaining {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-family: 'Raleway', sans-serif;
+}

@@ -1,0 +1,189 @@
+.page {
+  composes: page-enter from global;
+  composes: safe-top from global;
+  composes: scroll-area from global;
+  height: 100%;
+  padding: 0 20px 100px;
+  padding-top: max(env(safe-area-inset-top, 0px), 20px);
+}
+
+.header {
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+.heading {
+  composes: font-display from global;
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: var(--text-primary);
+  letter-spacing: 0.04em;
+}
+
+.summaryGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.summaryCard {
+  composes: card from global;
+  padding: 14px 10px;
+  text-align: center;
+}
+
+/* Per-stat color — applied to the card; icon and value inherit via currentColor */
+.statStreak      { color: var(--sage); }
+.statStreakEmpty { color: var(--text-muted); }
+.statSessions    { color: var(--ocean-light); }
+.statMinutes     { color: var(--sage-light); }
+
+.statIcon {
+  margin-bottom: 6px;
+}
+
+.statValue {
+  composes: font-display from global;
+  font-size: 1.6rem;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.statUnit {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  margin-left: 3px;
+}
+
+.statLabel {
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.calendarCard {
+  composes: card from global;
+  padding: 18px 16px;
+  margin-bottom: 20px;
+}
+
+.historyCard {
+  composes: card from global;
+  padding: 18px 16px;
+}
+
+.historyLabel {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 28px 0;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+}
+
+.historyList {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.historyItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(27, 73, 101, 0.2);
+}
+
+.historyItem:last-child {
+  border-bottom: none;
+}
+
+.historyDate {
+  font-size: 0.78rem;
+  color: var(--text-primary);
+}
+
+.historyMeta {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.historyCycles {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.historyDuration {
+  font-size: 0.7rem;
+  color: var(--sage);
+  background: rgba(116, 198, 157, 0.1);
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+
+/* CalendarGrid */
+.calLabel {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.calGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.calCell {
+  aspect-ratio: 1;
+  border-radius: 4px;
+  background: rgba(27, 73, 101, 0.25);
+  transition: background 0.2s;
+}
+
+.calCellActive {
+  background: var(--sage);
+  box-shadow: 0 0 8px var(--glow-sage);
+}
+
+.calLegend {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 6px;
+  gap: 12px;
+  font-size: 0.6rem;
+  color: var(--text-muted);
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.legendDot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: rgba(27, 73, 101, 0.4);
+}
+
+.legendDotActive {
+  background: var(--sage);
+}

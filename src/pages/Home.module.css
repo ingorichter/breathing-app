@@ -1,0 +1,115 @@
+.page {
+  composes: page-enter from global;
+  composes: safe-top from global;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 28px 80px;
+  gap: 36px;
+}
+
+.logoWrapper {
+  text-align: center;
+}
+
+.windIcon {
+  margin-bottom: 14px;
+  opacity: 0.85;
+  color: var(--sage);
+}
+
+.title {
+  composes: font-display from global;
+  margin: 0;
+  font-size: clamp(2rem, 8vw, 2.8rem);
+  font-weight: 300;
+  color: var(--text-primary);
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+}
+
+.subtitle {
+  margin: 8px 0 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.statBadges {
+  display: flex;
+  gap: 12px;
+}
+
+.streakBadge {
+  composes: streak-badge from global;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.streakBadgeActive {
+  color: var(--sage-light);
+}
+
+.sessionsBadge {
+  composes: card from global;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.buttonGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.primaryBtn {
+  composes: btn-primary from global;
+  font-size: 0.85rem;
+  padding: 18px 52px;
+}
+
+.ghostBtn {
+  composes: btn-ghost from global;
+}
+
+.patternCard {
+  composes: card from global;
+  padding: 18px 24px;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  max-width: 320px;
+  gap: 8px;
+}
+
+.patternItem {
+  text-align: center;
+}
+
+.patternValue {
+  composes: font-display from global;
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--sage);
+  line-height: 1;
+}
+
+.patternLabel {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
