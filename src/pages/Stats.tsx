@@ -1,11 +1,12 @@
 import { useMemo } from 'react';
+import { Temporal } from '@js-temporal/polyfill';
 import { Flame, Wind, Clock } from 'lucide-react';
 import { useSessions } from '../hooks/useSessions';
 import { SessionRecord } from '../types';
 import styles from './Stats.module.css';
 
 function formatDate(dateStr: string): string {
-  return new Date(dateStr + 'T12:00:00').toLocaleDateString('en-US', {
+  return Temporal.PlainDate.from(dateStr).toLocaleString('en-US', {
     month: 'short',
     day: 'numeric',
   });
@@ -17,15 +18,13 @@ function totalMinutes(sessions: SessionRecord[]): number {
 
 /** Last 35 days calendar grid */
 function CalendarGrid({ sessions }: { sessions: SessionRecord[] }) {
-  const dateSet = useMemo(() => new Set(sessions.map(s => s.date)), [sessions]);
+  const dateSet = useMemo(() => new Set(sessions.map((s) => s.date)), [sessions]);
 
   const days = useMemo(() => {
     const arr: { date: string; active: boolean }[] = [];
-    const today = new Date();
+    const today = Temporal.Now.plainDateISO();
     for (let i = 34; i >= 0; i--) {
-      const d = new Date(today);
-      d.setDate(d.getDate() - i);
-      const str = d.toISOString().slice(0, 10);
+      const str = today.subtract({ days: i }).toString();
       arr.push({ date: str, active: dateSet.has(str) });
     }
     return arr;
@@ -60,14 +59,20 @@ function CalendarGrid({ sessions }: { sessions: SessionRecord[] }) {
 export function Stats() {
   const { getAll, getStreak, getTotalCount } = useSessions();
   const sessions = useMemo(() => getAll().slice().reverse(), [getAll]);
-  const streak   = getStreak();
-  const total    = getTotalCount();
-  const mins     = totalMinutes(sessions);
+  const streak = getStreak();
+  const total = getTotalCount();
+  const mins = totalMinutes(sessions);
 
   const STAT_CARDS = [
-    { icon: Flame, value: streak, label: 'Streak',   unit: 'days', colorClass: streak > 0 ? styles.statStreak : styles.statStreakEmpty },
-    { icon: Wind,  value: total,  label: 'Sessions', unit: '',     colorClass: styles.statSessions },
-    { icon: Clock, value: mins,   label: 'Minutes',  unit: '',     colorClass: styles.statMinutes  },
+    {
+      icon: Flame,
+      value: streak,
+      label: 'Streak',
+      unit: 'days',
+      colorClass: streak > 0 ? styles.statStreak : styles.statStreakEmpty,
+    },
+    { icon: Wind, value: total, label: 'Sessions', unit: '', colorClass: styles.statSessions },
+    { icon: Clock, value: mins, label: 'Minutes', unit: '', colorClass: styles.statMinutes },
   ];
 
   return (
@@ -104,7 +109,7 @@ export function Stats() {
           <div className={styles.emptyState}>No sessions yet — start breathing!</div>
         ) : (
           <div className={styles.historyList}>
-            {sessions.slice(0, 30).map(s => (
+            {sessions.slice(0, 30).map((s) => (
               <div key={s.id} className={styles.historyItem}>
                 <span className={styles.historyDate}>{formatDate(s.date)}</span>
                 <div className={styles.historyMeta}>

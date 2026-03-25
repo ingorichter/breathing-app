@@ -3,8 +3,8 @@ import { Home, Settings, BarChart2 } from 'lucide-react';
 import styles from './Nav.module.css';
 
 const LINKS = [
-  { to: '/',      icon: Home,      label: 'Home'  },
-  { to: '/setup', icon: Settings,  label: 'Setup' },
+  { to: '/', icon: Home, label: 'Home' },
+  { to: '/setup', icon: Settings, label: 'Setup' },
   { to: '/stats', icon: BarChart2, label: 'Stats' },
 ];
 

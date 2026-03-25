@@ -39,7 +39,9 @@
   border: 2px solid rgba(116, 198, 157, 0.55);
   transform: scale(0.32);
   will-change: transform;
-  transition: transform 0.8s ease-out, box-shadow 1.2s ease;
+  transition:
+    transform 0.8s ease-out,
+    box-shadow 1.2s ease;
   box-shadow:
     0 0 18px var(--glow-sage),
     0 0 60px rgba(116, 198, 157, 0.08),
@@ -48,8 +50,9 @@
 
 .breathRingInhale {
   transform: scale(1);
-  transition: transform var(--dur-inhale) cubic-bezier(0.25, 0.1, 0.25, 1),
-              box-shadow var(--dur-inhale) ease;
+  transition:
+    transform var(--dur-inhale) cubic-bezier(0.25, 0.1, 0.25, 1),
+    box-shadow var(--dur-inhale) ease;
   box-shadow:
     0 0 40px var(--glow-sage),
     0 0 100px rgba(116, 198, 157, 0.15),
@@ -68,8 +71,9 @@
 
 .breathRingExhale {
   transform: scale(0.32);
-  transition: transform var(--dur-exhale) cubic-bezier(0.4, 0, 0.6, 1),
-              box-shadow var(--dur-exhale) ease;
+  transition:
+    transform var(--dur-exhale) cubic-bezier(0.4, 0, 0.6, 1),
+    box-shadow var(--dur-exhale) ease;
   box-shadow:
     0 0 16px var(--glow-sage),
     0 0 40px rgba(116, 198, 157, 0.06),
@@ -77,11 +81,21 @@
 }
 
 @keyframes holdPulse {
-  0%   { transform: scale(1); }
-  20%  { transform: scale(1.025); }
-  50%  { transform: scale(1.018); }
-  80%  { transform: scale(1.025); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(1.025);
+  }
+  50% {
+    transform: scale(1.018);
+  }
+  80% {
+    transform: scale(1.025);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .centerOverlay {
@@ -104,9 +118,15 @@
   line-height: 1;
 }
 
-.phaseLabelInhale { color: var(--sage-light); }
-.phaseLabelHold   { color: var(--ocean-light); }
-.phaseLabelExhale { color: var(--sage); }
+.phaseLabelInhale {
+  color: var(--sage-light);
+}
+.phaseLabelHold {
+  color: var(--ocean-light);
+}
+.phaseLabelExhale {
+  color: var(--sage);
+}
 
 .phaseTimer {
   font-size: clamp(2rem, 8vmin, 2.8rem);

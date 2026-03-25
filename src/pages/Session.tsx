@@ -10,7 +10,7 @@ import styles from './Session.module.css';
 
 export function Session() {
   const navigate = useNavigate();
-  const config   = loadConfig();
+  const config = loadConfig();
   const { save } = useSessions();
   const wakeLock = useWakeLock();
 
@@ -19,19 +19,21 @@ export function Session() {
       save({ duration: config.duration, completedCycles: cycles });
       wakeLock.release();
     },
-    [save, config.duration, wakeLock],
+    [save, config.duration, wakeLock]
   );
 
   const breathing = useBreathing({
     durationMinutes: config.duration,
-    audioMode:       config.audioMode,
-    onComplete:      handleComplete,
+    audioMode: config.audioMode,
+    onComplete: handleComplete,
   });
 
   useEffect(() => {
     wakeLock.request();
     breathing.start();
-    return () => { wakeLock.release(); };
+    return () => {
+      wakeLock.release();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -76,12 +78,17 @@ export function Session() {
           <div className={styles.completeTextWrapper}>
             <div className={styles.completeTitle}>Well done</div>
             <div className={styles.completeStats}>
-              {breathing.cycleCount} cycle{breathing.cycleCount !== 1 ? 's' : ''} · {config.duration} min
+              {breathing.cycleCount} cycle{breathing.cycleCount !== 1 ? 's' : ''} ·{' '}
+              {config.duration} min
             </div>
           </div>
           <div className={styles.btnRow}>
-            <button className={styles.ghostBtn} onClick={handleRestart}>Again</button>
-            <button className={styles.primaryBtn} onClick={() => navigate('/')}>Done</button>
+            <button className={styles.ghostBtn} onClick={handleRestart}>
+              Again
+            </button>
+            <button className={styles.primaryBtn} onClick={() => navigate('/')}>
+              Done
+            </button>
           </div>
         </div>
       )}

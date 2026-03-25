@@ -6,7 +6,7 @@ import { useHaptics } from './useHaptics';
 // Keep in sync with CSS --dur-* variables in index.css
 export const PHASE_DURATIONS: Record<Exclude<BreathPhase, 'idle'>, number> = {
   inhale: 4,
-  hold:   7,
+  hold: 7,
   exhale: 8,
 };
 
@@ -20,38 +20,41 @@ interface Options {
 }
 
 export function useBreathing({ durationMinutes, audioMode, onComplete }: Options) {
-  const [phase,         setPhase]        = useState<BreathPhase>('idle');
-  const [cycleCount,    setCycleCount]   = useState(0);
-  const [phaseProgress, setPhaseProgress]= useState(0); // 0–1 within current phase
-  const [totalProgress, setTotalProgress]= useState(0); // 0–1 across whole session
-  const [timeRemaining, setTimeRemaining]= useState(durationMinutes * 60);
-  const [isRunning,     setIsRunning]    = useState(false);
+  const [phase, setPhase] = useState<BreathPhase>('idle');
+  const [cycleCount, setCycleCount] = useState(0);
+  const [phaseProgress, setPhaseProgress] = useState(0); // 0–1 within current phase
+  const [totalProgress, setTotalProgress] = useState(0); // 0–1 across whole session
+  const [timeRemaining, setTimeRemaining] = useState(durationMinutes * 60);
+  const [isRunning, setIsRunning] = useState(false);
 
-  const phaseIdxRef    = useRef(0);
-  const phaseElapsedRef= useRef(0);
-  const totalElapsedRef= useRef(0);
-  const cycleRef       = useRef(0);
-  const timerRef       = useRef<ReturnType<typeof setInterval> | null>(null);
+  const phaseIdxRef = useRef(0);
+  const phaseElapsedRef = useRef(0);
+  const totalElapsedRef = useRef(0);
+  const cycleRef = useRef(0);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const totalSeconds = durationMinutes * 60;
 
   const { playPhase } = useAudio(audioMode);
-  const { vibrate }   = useHaptics();
+  const { vibrate } = useHaptics();
 
-  const enterPhase = useCallback((idx: number) => {
-    const p = SEQUENCE[idx];
-    setPhase(p);
-    phaseElapsedRef.current = 0;
-    setPhaseProgress(0);
-    playPhase(p);
-    vibrate(p);
-  }, [playPhase, vibrate]);
+  const enterPhase = useCallback(
+    (idx: number) => {
+      const p = SEQUENCE[idx];
+      setPhase(p);
+      phaseElapsedRef.current = 0;
+      setPhaseProgress(0);
+      playPhase(p);
+      vibrate(p);
+    },
+    [playPhase, vibrate]
+  );
 
   const start = useCallback(() => {
-    phaseIdxRef.current     = 0;
+    phaseIdxRef.current = 0;
     phaseElapsedRef.current = 0;
     totalElapsedRef.current = 0;
-    cycleRef.current        = 0;
+    cycleRef.current = 0;
     setCycleCount(0);
     setTotalProgress(0);
     setTimeRemaining(totalSeconds);
@@ -80,7 +83,7 @@ export function useBreathing({ durationMinutes, audioMode, onComplete }: Options
       setTotalProgress(Math.min(totalElapsedRef.current / totalSeconds, 1));
 
       const curPhase = SEQUENCE[phaseIdxRef.current];
-      const dur      = PHASE_DURATIONS[curPhase];
+      const dur = PHASE_DURATIONS[curPhase];
       setPhaseProgress(Math.min(phaseElapsedRef.current / dur, 1));
 
       // Session complete

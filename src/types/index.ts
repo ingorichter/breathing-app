@@ -8,8 +8,8 @@ export interface SessionConfig {
 
 export interface SessionRecord {
   id: string;
-  date: string;      // YYYY-MM-DD
-  duration: number;  // configured minutes
+  date: string; // YYYY-MM-DD
+  duration: number; // configured minutes
   completedCycles: number;
   timestamp: number; // unix ms — for sorting
 }

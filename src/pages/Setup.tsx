@@ -7,15 +7,15 @@ import { Theme, useTheme } from '../context/ThemeContext';
 import styles from './Setup.module.css';
 
 const AUDIO_OPTIONS: { mode: AudioMode; icon: typeof Volume2; label: string; desc: string }[] = [
-  { mode: 'bowl',   icon: Volume2, label: 'Singing Bowl', desc: 'Tibetan bowl tones' },
-  { mode: 'tone',   icon: Bell,    label: 'Tone',         desc: 'Simple sine tones'  },
-  { mode: 'visual', icon: Eye,     label: 'Visual Only',  desc: 'No audio'           },
+  { mode: 'bowl', icon: Volume2, label: 'Singing Bowl', desc: 'Tibetan bowl tones' },
+  { mode: 'tone', icon: Bell, label: 'Tone', desc: 'Simple sine tones' },
+  { mode: 'visual', icon: Eye, label: 'Visual Only', desc: 'No audio' },
 ];
 
 const THEMES: { id: Theme; label: string; color: string }[] = [
-  { id: 'green', label: 'Sage',   color: '#74c69d' },
+  { id: 'green', label: 'Sage', color: '#74c69d' },
   { id: 'orange', label: 'Ember', color: '#e8843b' },
-  { id: 'peach',  label: 'Blush', color: '#f0968a' },
+  { id: 'peach', label: 'Blush', color: '#f0968a' },
 ];
 
 export function Setup() {
@@ -26,11 +26,11 @@ export function Setup() {
   const handleDuration = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = Number(e.target.value);
     e.target.style.setProperty('--range-pct', `${((val - 1) / 59) * 100}%`);
-    setConfig(c => ({ ...c, duration: val }));
+    setConfig((c) => ({ ...c, duration: val }));
   };
 
   const handleAudio = (mode: AudioMode) => {
-    setConfig(c => ({ ...c, audioMode: mode }));
+    setConfig((c) => ({ ...c, audioMode: mode }));
   };
 
   const handleSave = () => {
@@ -125,7 +125,9 @@ export function Setup() {
 
       {/* Save + Start */}
       <div className={styles.saveRow}>
-        <button className={styles.ghostBtn} onClick={() => navigate('/')}>Cancel</button>
+        <button className={styles.ghostBtn} onClick={() => navigate('/')}>
+          Cancel
+        </button>
         <button className={styles.saveBtn} onClick={handleSave}>
           <Play size={14} strokeWidth={2} />
           Save

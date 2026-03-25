@@ -2,13 +2,13 @@ import { useCallback, useEffect, useRef } from 'react';
 
 export function useWakeLock() {
   const sentinelRef = useRef<WakeLockSentinel | null>(null);
-  const activeRef   = useRef(false);
+  const activeRef = useRef(false);
 
   const request = useCallback(async () => {
     if (!('wakeLock' in navigator)) return;
     try {
       sentinelRef.current = await navigator.wakeLock.request('screen');
-      activeRef.current   = true;
+      activeRef.current = true;
       sentinelRef.current.addEventListener('release', () => {
         activeRef.current = false;
       });

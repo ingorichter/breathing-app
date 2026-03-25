@@ -9,7 +9,7 @@ export function Home() {
   const { getStreak, getTotalCount } = useSessions();
 
   const streak = getStreak();
-  const total  = getTotalCount();
+  const total = getTotalCount();
   const config = loadConfig();
 
   return (
@@ -48,7 +48,7 @@ export function Home() {
       <div className={styles.patternCard}>
         {[
           { label: 'Inhale', value: '4s' },
-          { label: 'Hold',   value: '7s' },
+          { label: 'Hold', value: '7s' },
           { label: 'Exhale', value: '8s' },
         ].map(({ label, value }) => (
           <div key={label} className={styles.patternItem}>

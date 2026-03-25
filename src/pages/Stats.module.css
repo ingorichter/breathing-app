@@ -35,10 +35,18 @@
 }
 
 /* Per-stat color — applied to the card; icon and value inherit via currentColor */
-.statStreak      { color: var(--sage); }
-.statStreakEmpty { color: var(--text-muted); }
-.statSessions    { color: var(--ocean-light); }
-.statMinutes     { color: var(--sage-light); }
+.statStreak {
+  color: var(--sage);
+}
+.statStreakEmpty {
+  color: var(--text-muted);
+}
+.statSessions {
+  color: var(--ocean-light);
+}
+.statMinutes {
+  color: var(--sage-light);
+}
 
 .statIcon {
   margin-bottom: 6px;

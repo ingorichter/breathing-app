@@ -16,7 +16,7 @@ export default defineConfig({
         short_name: 'Breathe',
         description: 'Guided 4-7-8 breathing exercises for calm and focus',
         theme_color: '#04080f',
-        background_color: '#04080f',
+        background_color: '#6998ea',
         display: 'standalone',
         orientation: 'portrait',
         start_url: '/breathing-app/',

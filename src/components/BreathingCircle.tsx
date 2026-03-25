@@ -12,37 +12,35 @@ interface Props {
 }
 
 const PHASE_LABELS: Record<BreathPhase, string> = {
-  idle:   '',
+  idle: '',
   inhale: 'Breathe In',
-  hold:   'Hold',
+  hold: 'Hold',
   exhale: 'Breathe Out',
 };
 
 const PHASE_LABEL_CLASS: Record<BreathPhase, string> = {
-  idle:   '',
+  idle: '',
   inhale: styles.phaseLabelInhale,
-  hold:   styles.phaseLabelHold,
+  hold: styles.phaseLabelHold,
   exhale: styles.phaseLabelExhale,
 };
 
 const PHASE_RING_CLASS: Record<BreathPhase, string> = {
-  idle:   '',
+  idle: '',
   inhale: styles.breathRingInhale,
-  hold:   styles.breathRingHold,
+  hold: styles.breathRingHold,
   exhale: styles.breathRingExhale,
 };
 
 function formatTime(s: number): string {
   const m = Math.floor(s / 60);
   const sec = s % 60;
-  return m > 0
-    ? `${m}:${String(sec).padStart(2, '0')}`
-    : `${sec}s`;
+  return m > 0 ? `${m}:${String(sec).padStart(2, '0')}` : `${sec}s`;
 }
 
-const SVG_SIZE  = 340;
-const CENTER    = SVG_SIZE / 2;
-const PROG_R    = 154;
+const SVG_SIZE = 340;
+const CENTER = SVG_SIZE / 2;
+const PROG_R = 154;
 const PROG_CIRC = 2 * Math.PI * PROG_R;
 
 export function BreathingCircle({
@@ -53,18 +51,12 @@ export function BreathingCircle({
   phaseDuration,
   phaseProgress,
 }: Props) {
-  const strokeDashoffset = useMemo(
-    () => PROG_CIRC * (1 - totalProgress),
-    [totalProgress],
-  );
+  const strokeDashoffset = useMemo(() => PROG_CIRC * (1 - totalProgress), [totalProgress]);
 
-  const phaseSecondsLeft = phase === 'idle'
-    ? 0
-    : Math.ceil(phaseDuration * (1 - phaseProgress));
+  const phaseSecondsLeft = phase === 'idle' ? 0 : Math.ceil(phaseDuration * (1 - phaseProgress));
 
   return (
     <div className={styles.wrapper}>
-
       {/* ── Outer SVG progress ring ── */}
       <svg
         width={SVG_SIZE}
@@ -75,14 +67,16 @@ export function BreathingCircle({
       >
         <defs>
           <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%"   stopColor="var(--ocean-deep)" stopOpacity="0.6" />
-            <stop offset="100%" stopColor="var(--sage)"       stopOpacity="0.9" />
+            <stop offset="0%" stopColor="var(--ocean-deep)" stopOpacity="0.6" />
+            <stop offset="100%" stopColor="var(--sage)" stopOpacity="0.9" />
           </linearGradient>
         </defs>
 
         {/* Track */}
         <circle
-          cx={CENTER} cy={CENTER} r={PROG_R}
+          cx={CENTER}
+          cy={CENTER}
+          r={PROG_R}
           fill="none"
           stroke="rgba(27,73,101,0.25)"
           strokeWidth="2"
@@ -90,7 +84,9 @@ export function BreathingCircle({
 
         {/* Progress arc */}
         <circle
-          cx={CENTER} cy={CENTER} r={PROG_R}
+          cx={CENTER}
+          cy={CENTER}
+          r={PROG_R}
           fill="none"
           stroke="url(#arcGrad)"
           strokeWidth="2.5"
@@ -113,9 +109,7 @@ export function BreathingCircle({
             <span className={`${styles.phaseLabel} ${PHASE_LABEL_CLASS[phase]}`}>
               {PHASE_LABELS[phase]}
             </span>
-            <span className={styles.phaseTimer}>
-              {phaseSecondsLeft}
-            </span>
+            <span className={styles.phaseTimer}>{phaseSecondsLeft}</span>
           </>
         ) : (
           <span className={styles.idleLabel}>ready</span>

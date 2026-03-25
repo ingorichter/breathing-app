@@ -117,7 +117,9 @@
   border: 1px solid rgba(27, 73, 101, 0.3);
   background: transparent;
   cursor: pointer;
-  transition: border-color 0.2s, background 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
   text-align: left;
 }
 
@@ -186,7 +188,9 @@
   border: 1px solid rgba(27, 73, 101, 0.3);
   background: transparent;
   cursor: pointer;
-  transition: border-color 0.2s, background 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
 }
 
 .themeOptionActive {

@@ -3,7 +3,7 @@ import { AudioMode, BreathPhase } from '../types';
 
 // Approximate inharmonic partial ratios of a real Tibetan singing bowl
 const BOWL_PARTIALS = [
-  { ratio: 1,     gain: 0.50 },
+  { ratio: 1, gain: 0.5 },
   { ratio: 2.756, gain: 0.28 },
   { ratio: 5.404, gain: 0.12 },
 ];
@@ -11,13 +11,13 @@ const BOWL_PARTIALS = [
 // Fundamental Hz per phase — chosen for a calming progression
 const BOWL_FREQ: Record<Exclude<BreathPhase, 'idle'>, number> = {
   inhale: 396, // F — grounding, inviting inward breath
-  hold:   528, // C — resonant stillness
+  hold: 528, // C — resonant stillness
   exhale: 285, // D — lower, releasing
 };
 
 const TONE_FREQ: Record<Exclude<BreathPhase, 'idle'>, number> = {
   inhale: 440,
-  hold:   528,
+  hold: 528,
   exhale: 330,
 };
 
@@ -37,8 +37,8 @@ export function useAudio(mode: AudioMode) {
   /** Singing-bowl synthesis: layered sine harmonics with exponential decay */
   const playBowl = useCallback(
     (phase: Exclude<BreathPhase, 'idle'>) => {
-      const ctx   = getCtx();
-      const f0    = BOWL_FREQ[phase];
+      const ctx = getCtx();
+      const f0 = BOWL_FREQ[phase];
       const decay = 3.2; // seconds for the tail
 
       // Masterbus gain so bowl isn't too loud
@@ -47,13 +47,13 @@ export function useAudio(mode: AudioMode) {
       master.connect(ctx.destination);
 
       BOWL_PARTIALS.forEach(({ ratio, gain }) => {
-        const osc  = ctx.createOscillator();
+        const osc = ctx.createOscillator();
         const gNode = ctx.createGain();
 
         osc.connect(gNode);
         gNode.connect(master);
 
-        osc.type          = 'sine';
+        osc.type = 'sine';
         osc.frequency.value = f0 * ratio;
 
         // Short physical attack (mallet strike)
@@ -66,20 +66,20 @@ export function useAudio(mode: AudioMode) {
         osc.stop(ctx.currentTime + decay + 0.05);
       });
     },
-    [getCtx],
+    [getCtx]
   );
 
   /** Simple sine tone with fast envelope */
   const playTone = useCallback(
     (phase: Exclude<BreathPhase, 'idle'>) => {
-      const ctx  = getCtx();
-      const osc  = ctx.createOscillator();
+      const ctx = getCtx();
+      const osc = ctx.createOscillator();
       const gNode = ctx.createGain();
 
       osc.connect(gNode);
       gNode.connect(ctx.destination);
 
-      osc.type          = 'sine';
+      osc.type = 'sine';
       osc.frequency.value = TONE_FREQ[phase];
 
       gNode.gain.setValueAtTime(0.3, ctx.currentTime);
@@ -88,16 +88,16 @@ export function useAudio(mode: AudioMode) {
       osc.start(ctx.currentTime);
       osc.stop(ctx.currentTime + 0.6);
     },
-    [getCtx],
+    [getCtx]
   );
 
   const playPhase = useCallback(
     (phase: Exclude<BreathPhase, 'idle'>) => {
       if (mode === 'visual') return;
-      if (mode === 'bowl')   playBowl(phase);
-      if (mode === 'tone')   playTone(phase);
+      if (mode === 'bowl') playBowl(phase);
+      if (mode === 'tone') playTone(phase);
     },
-    [mode, playBowl, playTone],
+    [mode, playBowl, playTone]
   );
 
   return { playPhase };
