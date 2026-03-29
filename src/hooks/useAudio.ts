@@ -24,20 +24,21 @@ const TONE_FREQ: Record<Exclude<BreathPhase, 'idle'>, number> = {
 export function useAudio(mode: AudioMode) {
   const ctxRef = useRef<AudioContext | null>(null);
 
-  const getCtx = useCallback((): AudioContext => {
+  const getCtx = useCallback(async (): Promise<AudioContext> => {
     if (!ctxRef.current || ctxRef.current.state === 'closed') {
       ctxRef.current = new AudioContext();
     }
     if (ctxRef.current.state === 'suspended') {
-      ctxRef.current.resume();
+      await ctxRef.current.resume();
     }
     return ctxRef.current;
   }, []);
 
+
   /** Singing-bowl synthesis: layered sine harmonics with exponential decay */
   const playBowl = useCallback(
-    (phase: Exclude<BreathPhase, 'idle'>) => {
-      const ctx = getCtx();
+    async (phase: Exclude<BreathPhase, 'idle'>) => {
+      const ctx = await getCtx();
       const f0 = BOWL_FREQ[phase];
       const decay = 3.2; // seconds for the tail
 
@@ -71,8 +72,8 @@ export function useAudio(mode: AudioMode) {
 
   /** Simple sine tone with fast envelope */
   const playTone = useCallback(
-    (phase: Exclude<BreathPhase, 'idle'>) => {
-      const ctx = getCtx();
+    async (phase: Exclude<BreathPhase, 'idle'>) => {
+      const ctx = await getCtx();
       const osc = ctx.createOscillator();
       const gNode = ctx.createGain();
 

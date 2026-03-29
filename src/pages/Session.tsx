@@ -38,12 +38,18 @@ export function Session() {
   }, []);
 
   const handleStop = () => {
+    if (breathing.totalProgress > 0) {
+      save({ duration: config.duration, completedCycles: breathing.cycleCount });
+    }
     breathing.stop();
     wakeLock.release();
     navigate('/');
   };
 
   const handleRestart = () => {
+    if (breathing.totalProgress > 0) {
+      save({ duration: config.duration, completedCycles: breathing.cycleCount });
+    }
     breathing.stop();
     setTimeout(() => breathing.start(), 80);
   };

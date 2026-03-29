@@ -103,6 +103,12 @@ export function Setup() {
             );
           })}
         </div>
+
+        {config.audioMode !== 'visual' && (
+          <p className={styles.audioHint}>
+            Make sure your phone is not muted to hear the audio cues.
+          </p>
+        )}
       </div>
 
       {/* Theme */}

@@ -18,17 +18,22 @@ export function useSessions() {
   }, []);
 
   const save = useCallback(
-    (partial: Omit<SessionRecord, 'id' | 'date' | 'timestamp'>): SessionRecord => {
-      const all = getAll();
-      const record: SessionRecord = {
-        ...partial,
-        id: crypto.randomUUID(),
-        date: todayStr(),
-        timestamp: Temporal.Now.instant().epochMilliseconds,
-      };
-      all.push(record);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
-      return record;
+    (partial: Omit<SessionRecord, 'id' | 'date' | 'timestamp'>): SessionRecord | null => {
+      try {
+        const all = getAll();
+        const record: SessionRecord = {
+          ...partial,
+          id: crypto.randomUUID(),
+          date: todayStr(),
+          timestamp: Temporal.Now.instant().epochMilliseconds,
+        };
+        all.push(record);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+        return record;
+      } catch (err) {
+        console.error('[useSessions] failed to save session:', err);
+        return null;
+      }
     },
     [getAll]
   );
