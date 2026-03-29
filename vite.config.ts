@@ -6,6 +6,9 @@ import { VitePWA } from 'vite-plugin-pwa';
 // Change '/breathing-app/' to match your GitHub Pages subfolder
 export default defineConfig({
   base: '/breathing-app/',
+  preview: {
+    allowedHosts: true,
+  },
   plugins: [
     react(),
     tailwindcss(),
