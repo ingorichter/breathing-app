@@ -3,7 +3,7 @@ import { renderHook, act } from '@testing-library/react';
 import { useBreathing, PHASE_DURATIONS } from './useBreathing';
 
 vi.mock('./useAudio', () => ({
-  useAudio: () => ({ playPhase: vi.fn() }),
+  useAudio: () => ({ playPhase: vi.fn(), playGong: vi.fn() }),
 }));
 vi.mock('./useHaptics', () => ({
   useHaptics: () => ({ vibrate: vi.fn() }),
@@ -13,12 +13,18 @@ const CYCLE_DURATION = PHASE_DURATIONS.inhale + PHASE_DURATIONS.hold + PHASE_DUR
 
 // Use a generous buffer to account for floating point accumulation in tick counters
 function advanceSec(sec: number) {
-  act(() => { vi.advanceTimersByTime(sec * 1000 + 500); });
+  act(() => {
+    vi.advanceTimersByTime(sec * 1000 + 500);
+  });
 }
 
 describe('useBreathing', () => {
-  beforeEach(() => { vi.useFakeTimers(); });
-  afterEach(() => { vi.useRealTimers(); });
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+  afterEach(() => {
+    vi.useRealTimers();
+  });
 
   it('starts in idle state', () => {
     const { result } = renderHook(() =>
@@ -41,7 +47,9 @@ describe('useBreathing', () => {
     const { result } = renderHook(() =>
       useBreathing({ durationMinutes: 5, audioMode: 'visual', onComplete: vi.fn() })
     );
-    act(() => { result.current.start(); });
+    act(() => {
+      result.current.start();
+    });
     expect(result.current.phase).toBe('inhale');
     expect(result.current.isRunning).toBe(true);
   });
@@ -57,7 +65,9 @@ describe('useBreathing', () => {
     const { result } = renderHook(() =>
       useBreathing({ durationMinutes: 5, audioMode: 'visual', onComplete: vi.fn() })
     );
-    act(() => { result.current.start(); });
+    act(() => {
+      result.current.start();
+    });
     expect(result.current.phaseDuration).toBe(PHASE_DURATIONS.inhale);
   });
 
@@ -65,7 +75,9 @@ describe('useBreathing', () => {
     const { result } = renderHook(() =>
       useBreathing({ durationMinutes: 5, audioMode: 'visual', onComplete: vi.fn() })
     );
-    act(() => { result.current.start(); });
+    act(() => {
+      result.current.start();
+    });
     advanceSec(PHASE_DURATIONS.inhale);
     expect(result.current.phase).toBe('hold');
   });
@@ -74,7 +86,9 @@ describe('useBreathing', () => {
     const { result } = renderHook(() =>
       useBreathing({ durationMinutes: 5, audioMode: 'visual', onComplete: vi.fn() })
     );
-    act(() => { result.current.start(); });
+    act(() => {
+      result.current.start();
+    });
     advanceSec(PHASE_DURATIONS.inhale + PHASE_DURATIONS.hold);
     expect(result.current.phase).toBe('exhale');
   });
@@ -83,7 +97,9 @@ describe('useBreathing', () => {
     const { result } = renderHook(() =>
       useBreathing({ durationMinutes: 5, audioMode: 'visual', onComplete: vi.fn() })
     );
-    act(() => { result.current.start(); });
+    act(() => {
+      result.current.start();
+    });
     advanceSec(CYCLE_DURATION);
     expect(result.current.cycleCount).toBe(1);
   });
@@ -92,7 +108,9 @@ describe('useBreathing', () => {
     const { result } = renderHook(() =>
       useBreathing({ durationMinutes: 5, audioMode: 'visual', onComplete: vi.fn() })
     );
-    act(() => { result.current.start(); });
+    act(() => {
+      result.current.start();
+    });
     advanceSec(CYCLE_DURATION * 2);
     expect(result.current.cycleCount).toBe(2);
   });
@@ -101,7 +119,9 @@ describe('useBreathing', () => {
     const { result } = renderHook(() =>
       useBreathing({ durationMinutes: 5, audioMode: 'visual', onComplete: vi.fn() })
     );
-    act(() => { result.current.start(); });
+    act(() => {
+      result.current.start();
+    });
     advanceSec(30);
     expect(result.current.totalProgress).toBeGreaterThan(0);
     expect(result.current.totalProgress).toBeLessThanOrEqual(1);
@@ -111,9 +131,13 @@ describe('useBreathing', () => {
     const { result } = renderHook(() =>
       useBreathing({ durationMinutes: 5, audioMode: 'visual', onComplete: vi.fn() })
     );
-    act(() => { result.current.start(); });
+    act(() => {
+      result.current.start();
+    });
     advanceSec(5);
-    act(() => { result.current.stop(); });
+    act(() => {
+      result.current.stop();
+    });
     expect(result.current.phase).toBe('idle');
     expect(result.current.isRunning).toBe(false);
   });
@@ -123,7 +147,9 @@ describe('useBreathing', () => {
     const { result } = renderHook(() =>
       useBreathing({ durationMinutes: 1, audioMode: 'visual', onComplete })
     );
-    act(() => { result.current.start(); });
+    act(() => {
+      result.current.start();
+    });
     advanceSec(61); // advance past 1 minute
     expect(onComplete).toHaveBeenCalledTimes(1);
     expect(onComplete).toHaveBeenCalledWith(expect.any(Number));
@@ -134,8 +160,12 @@ describe('useBreathing', () => {
     const { result } = renderHook(() =>
       useBreathing({ durationMinutes: 1, audioMode: 'visual', onComplete })
     );
-    act(() => { result.current.start(); });
-    act(() => { result.current.stop(); });
+    act(() => {
+      result.current.start();
+    });
+    act(() => {
+      result.current.stop();
+    });
     advanceSec(61);
     expect(onComplete).not.toHaveBeenCalled();
   });
