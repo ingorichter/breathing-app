@@ -35,7 +35,7 @@ export function useBreathing({ durationMinutes, audioMode, onComplete }: Options
 
   const totalSeconds = durationMinutes * 60;
 
-  const { playPhase } = useAudio(audioMode);
+  const { playPhase, playGong } = useAudio(audioMode);
   const { vibrate } = useHaptics();
 
   const enterPhase = useCallback(
@@ -91,6 +91,7 @@ export function useBreathing({ durationMinutes, audioMode, onComplete }: Options
         clearInterval(timerRef.current!);
         setIsRunning(false);
         setPhase('idle');
+        playGong();
         onComplete(cycleRef.current);
         return;
       }
@@ -109,7 +110,7 @@ export function useBreathing({ durationMinutes, audioMode, onComplete }: Options
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [isRunning, totalSeconds, enterPhase, onComplete]);
+  }, [isRunning, totalSeconds, enterPhase, onComplete, playGong]);
 
   return {
     phase,

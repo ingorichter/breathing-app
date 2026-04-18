@@ -101,5 +101,33 @@ export function useAudio(mode: AudioMode) {
     [mode, playBowl, playTone]
   );
 
-  return { playPhase };
+  /** Deep gong strike to signal session end — plays regardless of mode */
+  const playGong = useCallback(async () => {
+    const ctx = await getCtx();
+    const f0 = 110; // deep gong fundamental
+    const decay = 5.0;
+
+    const master = ctx.createGain();
+    master.gain.value = 0.75;
+    master.connect(ctx.destination);
+
+    // Strike twice with a slight delay for a richer gong character
+    [0, 0.08].forEach((offset) => {
+      BOWL_PARTIALS.forEach(({ ratio, gain }) => {
+        const osc = ctx.createOscillator();
+        const gNode = ctx.createGain();
+        osc.connect(gNode);
+        gNode.connect(master);
+        osc.type = 'sine';
+        osc.frequency.value = f0 * ratio;
+        gNode.gain.setValueAtTime(0, ctx.currentTime + offset);
+        gNode.gain.linearRampToValueAtTime(gain, ctx.currentTime + offset + 0.04);
+        gNode.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + offset + decay);
+        osc.start(ctx.currentTime + offset);
+        osc.stop(ctx.currentTime + offset + decay + 0.05);
+      });
+    });
+  }, [getCtx]);
+
+  return { playPhase, playGong };
 }

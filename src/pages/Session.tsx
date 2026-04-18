@@ -28,6 +28,7 @@ export function Session() {
     onComplete: handleComplete,
   });
 
+  // this effect runs once on mount to start the session and acquire the wake lock, and cleans up on unmount
   useEffect(() => {
     wakeLock.request();
     breathing.start();
