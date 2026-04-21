@@ -3,9 +3,8 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
-// Change '/breathing-app/' to match your GitHub Pages subfolder
 export default defineConfig({
-  base: '/breathing-app/',
+  base: '/',
   preview: {
     allowedHosts: true,
   },
@@ -25,21 +24,21 @@ export default defineConfig({
         background_color: '#04080f',
         display: 'standalone',
         orientation: 'portrait',
-        start_url: '/breathing-app/',
-        scope: '/breathing-app/',
+        start_url: '/',
+        scope: '/',
         icons: [
           {
-            src: '/breathing-app/icon-192.png',
+            src: '/icon-192.png',
             sizes: '192x192',
             type: 'image/png',
           },
           {
-            src: '/breathing-app/icon-512.png',
+            src: '/icon-512.png',
             sizes: '512x512',
             type: 'image/png',
           },
           {
-            src: '/breathing-app/icon-512.png',
+            src: '/icon-512.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'maskable',
