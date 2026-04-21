@@ -243,3 +243,12 @@
 .ghostBtn {
   composes: btn-ghost from global;
 }
+
+.buildInfo {
+  margin-top: 32px;
+  text-align: center;
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  opacity: 0.4;
+}

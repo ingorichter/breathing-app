@@ -2,9 +2,17 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
+import { execSync } from 'child_process';
+
+const gitSha = execSync('git rev-parse --short HEAD').toString().trim();
+const buildDate = new Date().toISOString().slice(0, 10);
 
 export default defineConfig({
   base: '/',
+  define: {
+    __BUILD_DATE__: JSON.stringify(buildDate),
+    __GIT_SHA__: JSON.stringify(gitSha),
+  },
   preview: {
     allowedHosts: true,
   },

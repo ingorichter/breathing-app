@@ -3,6 +3,10 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
+  define: {
+    __BUILD_DATE__: JSON.stringify('test'),
+    __GIT_SHA__: JSON.stringify('test'),
+  },
   test: {
     globals: true,
     environment: 'happy-dom',

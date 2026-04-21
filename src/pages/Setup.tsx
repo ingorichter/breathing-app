@@ -139,6 +139,10 @@ export function Setup() {
           Save
         </button>
       </div>
+
+      <p className={styles.buildInfo}>
+        {__BUILD_DATE__} · {__GIT_SHA__}
+      </p>
     </div>
   );
 }
