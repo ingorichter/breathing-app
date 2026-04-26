@@ -32,9 +32,12 @@ describe('Home page', () => {
   });
 
   it('shows "1 session" (singular) when total is 1', () => {
-    localStorage.setItem('breathing-sessions', JSON.stringify([
-      { id: '1', date: '2026-03-29', duration: 5, completedCycles: 3, timestamp: 1 },
-    ]));
+    localStorage.setItem(
+      'breathing-sessions',
+      JSON.stringify([
+        { id: '1', date: '2026-03-29', duration: 5, completedCycles: 3, timestamp: 1 },
+      ])
+    );
     renderWithProviders(<Home />);
     expect(screen.getByText(/1 session\b/i)).toBeInTheDocument();
   });

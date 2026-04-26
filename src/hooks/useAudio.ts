@@ -34,7 +34,6 @@ export function useAudio(mode: AudioMode) {
     return ctxRef.current;
   }, []);
 
-
   /** Singing-bowl synthesis: layered sine harmonics with exponential decay */
   const playBowl = useCallback(
     async (phase: Exclude<BreathPhase, 'idle'>) => {
@@ -44,7 +43,7 @@ export function useAudio(mode: AudioMode) {
 
       // Masterbus gain so bowl isn't too loud
       const master = ctx.createGain();
-      master.gain.value = 0.55;
+      master.gain.value = 0.75;
       master.connect(ctx.destination);
 
       BOWL_PARTIALS.forEach(({ ratio, gain }) => {

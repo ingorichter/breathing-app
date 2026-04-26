@@ -50,12 +50,28 @@ describe('BreathingCircle', () => {
   });
 
   it('shows time remaining in seconds format when under 1 minute', () => {
-    render(<BreathingCircle {...baseProps} phase="inhale" phaseDuration={4} phaseProgress={0} timeRemaining={45} />);
+    render(
+      <BreathingCircle
+        {...baseProps}
+        phase="inhale"
+        phaseDuration={4}
+        phaseProgress={0}
+        timeRemaining={45}
+      />
+    );
     expect(screen.getByText('45s left')).toBeInTheDocument();
   });
 
   it('shows time remaining in m:ss format when 1 minute or more', () => {
-    render(<BreathingCircle {...baseProps} phase="inhale" phaseDuration={4} phaseProgress={0} timeRemaining={90} />);
+    render(
+      <BreathingCircle
+        {...baseProps}
+        phase="inhale"
+        phaseDuration={4}
+        phaseProgress={0}
+        timeRemaining={90}
+      />
+    );
     expect(screen.getByText('1:30 left')).toBeInTheDocument();
   });
 

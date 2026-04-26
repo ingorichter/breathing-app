@@ -13,19 +13,25 @@ describe('useHaptics', () => {
 
   it('vibrates with a short pulse for inhale', () => {
     const { result } = renderHook(() => useHaptics());
-    act(() => { result.current.vibrate('inhale'); });
+    act(() => {
+      result.current.vibrate('inhale');
+    });
     expect(navigator.vibrate).toHaveBeenCalledWith([60]);
   });
 
   it('vibrates with a triple tap pattern for hold', () => {
     const { result } = renderHook(() => useHaptics());
-    act(() => { result.current.vibrate('hold'); });
+    act(() => {
+      result.current.vibrate('hold');
+    });
     expect(navigator.vibrate).toHaveBeenCalledWith([30, 60, 30, 60, 30]);
   });
 
   it('vibrates with a longer pulse for exhale', () => {
     const { result } = renderHook(() => useHaptics());
-    act(() => { result.current.vibrate('exhale'); });
+    act(() => {
+      result.current.vibrate('exhale');
+    });
     expect(navigator.vibrate).toHaveBeenCalledWith([120]);
   });
 
@@ -37,6 +43,10 @@ describe('useHaptics', () => {
       writable: true,
     });
     const { result } = renderHook(() => useHaptics());
-    expect(() => { act(() => { result.current.vibrate('inhale'); }); }).not.toThrow();
+    expect(() => {
+      act(() => {
+        result.current.vibrate('inhale');
+      });
+    }).not.toThrow();
   });
 });

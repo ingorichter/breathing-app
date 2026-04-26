@@ -32,7 +32,12 @@ function makeMockAudioContext() {
 
 // AudioContext is a constructor — arrow functions are not constructable, use a regular function
 function stubAudioContext(ctx: ReturnType<typeof makeMockAudioContext>['ctx']) {
-  vi.stubGlobal('AudioContext', vi.fn().mockImplementation(function () { return ctx; }));
+  vi.stubGlobal(
+    'AudioContext',
+    vi.fn().mockImplementation(function () {
+      return ctx;
+    })
+  );
 }
 
 describe('useAudio', () => {
@@ -47,19 +52,25 @@ describe('useAudio', () => {
 
   it('playPhase does nothing in visual mode', async () => {
     const { result } = renderHook(() => useAudio('visual'));
-    await act(async () => { result.current.playPhase('inhale'); });
+    await act(async () => {
+      result.current.playPhase('inhale');
+    });
     expect(AudioContext).not.toHaveBeenCalled();
   });
 
   it('playPhase creates AudioContext in bowl mode', async () => {
     const { result } = renderHook(() => useAudio('bowl'));
-    await act(async () => { result.current.playPhase('inhale'); });
+    await act(async () => {
+      result.current.playPhase('inhale');
+    });
     expect(AudioContext).toHaveBeenCalled();
   });
 
   it('playPhase creates AudioContext in tone mode', async () => {
     const { result } = renderHook(() => useAudio('tone'));
-    await act(async () => { result.current.playPhase('exhale'); });
+    await act(async () => {
+      result.current.playPhase('exhale');
+    });
     expect(AudioContext).toHaveBeenCalled();
   });
 
@@ -68,7 +79,9 @@ describe('useAudio', () => {
     stubAudioContext(ctx);
 
     const { result } = renderHook(() => useAudio('bowl'));
-    await act(async () => { result.current.playPhase('inhale'); });
+    await act(async () => {
+      result.current.playPhase('inhale');
+    });
 
     // BOWL_PARTIALS has 3 entries → 3 oscillators created
     expect(ctx.createOscillator).toHaveBeenCalledTimes(3);
@@ -79,7 +92,9 @@ describe('useAudio', () => {
     stubAudioContext(ctx);
 
     const { result } = renderHook(() => useAudio('tone'));
-    await act(async () => { result.current.playPhase('hold'); });
+    await act(async () => {
+      result.current.playPhase('hold');
+    });
 
     expect(ctx.createOscillator).toHaveBeenCalledTimes(1);
   });
@@ -90,7 +105,9 @@ describe('useAudio', () => {
     stubAudioContext(ctx);
 
     const { result } = renderHook(() => useAudio('tone'));
-    await act(async () => { result.current.playPhase('inhale'); });
+    await act(async () => {
+      result.current.playPhase('inhale');
+    });
 
     expect(ctx.resume).toHaveBeenCalled();
   });

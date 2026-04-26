@@ -6,7 +6,10 @@ interface WrapperOptions extends RenderOptions {
   route?: string;
 }
 
-export function renderWithProviders(ui: React.ReactElement, { route = '/', ...opts }: WrapperOptions = {}) {
+export function renderWithProviders(
+  ui: React.ReactElement,
+  { route = '/', ...opts }: WrapperOptions = {}
+) {
   return render(
     <MemoryRouter initialEntries={[route]}>
       <ThemeProvider>{ui}</ThemeProvider>

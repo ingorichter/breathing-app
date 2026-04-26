@@ -23,7 +23,9 @@ describe('useWakeLock', () => {
     Object.defineProperty(navigator, 'wakeLock', { value: wakeLock, configurable: true });
 
     const { result } = renderHook(() => useWakeLock());
-    await act(async () => { await result.current.request(); });
+    await act(async () => {
+      await result.current.request();
+    });
 
     expect(wakeLock.request).toHaveBeenCalledWith('screen');
   });
@@ -33,8 +35,12 @@ describe('useWakeLock', () => {
     Object.defineProperty(navigator, 'wakeLock', { value: wakeLock, configurable: true });
 
     const { result } = renderHook(() => useWakeLock());
-    await act(async () => { await result.current.request(); });
-    await act(async () => { await result.current.release(); });
+    await act(async () => {
+      await result.current.request();
+    });
+    await act(async () => {
+      await result.current.release();
+    });
 
     expect(sentinel.release).toHaveBeenCalled();
   });
@@ -43,7 +49,11 @@ describe('useWakeLock', () => {
     Object.defineProperty(navigator, 'wakeLock', { value: undefined, configurable: true });
 
     const { result } = renderHook(() => useWakeLock());
-    await expect(act(async () => { await result.current.request(); })).resolves.not.toThrow();
+    await expect(
+      act(async () => {
+        await result.current.request();
+      })
+    ).resolves.not.toThrow();
   });
 
   it('reacquires lock on visibility change when active', async () => {
@@ -51,7 +61,9 @@ describe('useWakeLock', () => {
     Object.defineProperty(navigator, 'wakeLock', { value: wakeLock, configurable: true });
 
     const { result } = renderHook(() => useWakeLock());
-    await act(async () => { await result.current.request(); });
+    await act(async () => {
+      await result.current.request();
+    });
 
     // Simulate tab becoming visible again
     Object.defineProperty(document, 'visibilityState', { value: 'visible', configurable: true });

@@ -75,9 +75,27 @@ describe('useSessions', () => {
 
   it('getStreak counts consecutive days', () => {
     const records: SessionRecord[] = [
-      { id: 'id-0', date: '2026-03-29', duration: 5, completedCycles: 3, timestamp: FIXED_EPOCH_MS },
-      { id: 'id-1', date: '2026-03-28', duration: 5, completedCycles: 3, timestamp: FIXED_EPOCH_MS - 86400000 },
-      { id: 'id-2', date: '2026-03-27', duration: 5, completedCycles: 3, timestamp: FIXED_EPOCH_MS - 172800000 },
+      {
+        id: 'id-0',
+        date: '2026-03-29',
+        duration: 5,
+        completedCycles: 3,
+        timestamp: FIXED_EPOCH_MS,
+      },
+      {
+        id: 'id-1',
+        date: '2026-03-28',
+        duration: 5,
+        completedCycles: 3,
+        timestamp: FIXED_EPOCH_MS - 86400000,
+      },
+      {
+        id: 'id-2',
+        date: '2026-03-27',
+        duration: 5,
+        completedCycles: 3,
+        timestamp: FIXED_EPOCH_MS - 172800000,
+      },
     ];
     localStorage.setItem('breathing-sessions', JSON.stringify(records));
 
@@ -87,9 +105,21 @@ describe('useSessions', () => {
 
   it('getStreak breaks on a gap', () => {
     const records: SessionRecord[] = [
-      { id: 'id-0', date: '2026-03-29', duration: 5, completedCycles: 3, timestamp: FIXED_EPOCH_MS },
+      {
+        id: 'id-0',
+        date: '2026-03-29',
+        duration: 5,
+        completedCycles: 3,
+        timestamp: FIXED_EPOCH_MS,
+      },
       // gap: 2026-03-28 missing
-      { id: 'id-1', date: '2026-03-27', duration: 5, completedCycles: 3, timestamp: FIXED_EPOCH_MS - 172800000 },
+      {
+        id: 'id-1',
+        date: '2026-03-27',
+        duration: 5,
+        completedCycles: 3,
+        timestamp: FIXED_EPOCH_MS - 172800000,
+      },
     ];
     localStorage.setItem('breathing-sessions', JSON.stringify(records));
 
